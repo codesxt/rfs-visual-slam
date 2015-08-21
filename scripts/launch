@@ -1,3 +1,4 @@
 #!/bin/bash
 DATASET_PATH=/mnt/730A5EF65233D6DE/KITTI/00/image_0
 GROUND_TRUTH_PATH=/mnt/730A5EF65233D6DE/KITTI/dataset/poses/00.txt
+../build/rfs-visual-slam --dataset ${DATASET_PATH} --ground-truth ${GROUND_TRUTH_PATH}

@@ -7,5 +7,9 @@ mkdir build
 cd build
 cmake ..
 make
-./rfs-visual-slam
+```
+
+To run:
+```bash
+./rfs-visual-slam --dataset KITTI_DATASET_PATH --ground-truth KITTI_DATASET_GROUND_TRUTH_PATH
 ```
