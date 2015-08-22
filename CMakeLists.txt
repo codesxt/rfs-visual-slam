@@ -27,6 +27,7 @@ add_executable(
 	rfs-visual-slam
 	src/main.cpp
 	src/pose.cpp
+	src/trajectory.cpp
 	src/utils.cpp)
 target_link_libraries(
 	rfs-visual-slam

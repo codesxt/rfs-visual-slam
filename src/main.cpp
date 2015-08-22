@@ -2,9 +2,11 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <opencv2/features2d.hpp>
-#include "pose.hpp"
 #include <boost/program_options.hpp>
 #include <boost/filesystem.hpp>
+
+#include "pose.hpp"
+#include "trajectory.hpp"
 
 using namespace std;
 using namespace cv;
@@ -53,12 +55,20 @@ int main( int argc, char** argv )	{
       filenames.push_back(current_file);
     }
     sort(filenames.begin(), filenames.end());
+
+    // Images are processed
+    Ptr<Feature2D> detector = ORB::create();
+    vector <KeyPoint> kp;
     Mat frame;
     namedWindow("Image", 1);
     for(int i=0; i< (int) filenames.size(); i++){
       frame = imread(filenames.at(i));
+      detector->detect(frame, kp);
+      putText(frame, "Frame: "+to_string(i), Point(50,50), FONT_HERSHEY_SIMPLEX, 1, Scalar(0,200,200), 4);
+      drawKeypoints(frame, kp, frame);
       imshow("Image", frame);
       waitKey(33);
     }
+
   return 0;
 }
