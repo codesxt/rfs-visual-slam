@@ -7,13 +7,15 @@
 #include <boost/filesystem.hpp>
 
 using namespace std;
+using namespace cv;
 namespace po = boost::program_options;
+namespace fs = boost::filesystem;
 
 int main( int argc, char** argv )	{
   string dataset_path = "";
   string ground_truth_path = "";
 
-  po::options_description desc("Random Finite Set");
+  po::options_description desc("RFS Based Visual Slam");
   desc.add_options()
     ("help", "Prints this description")
     ("dataset", po::value<string>(), "Dataset path")
@@ -40,6 +42,23 @@ int main( int argc, char** argv )	{
     /* ---------------------------------------------
      * Main program begins here
      * --------------------------------------------- */
+    fs::path p(dataset_path);
+    fs::directory_iterator end_itr;
 
+    // Read files from dataset directory
+    vector<string>filenames;
+    for (fs::directory_iterator itr(p); itr != end_itr; ++itr)
+    {
+      string current_file = itr->path().string();
+      filenames.push_back(current_file);
+    }
+    sort(filenames.begin(), filenames.end());
+    Mat frame;
+    namedWindow("Image", 1);
+    for(int i=0; i< (int) filenames.size(); i++){
+      frame = imread(filenames.at(i));
+      imshow("Image", frame);
+      waitKey(33);
+    }
   return 0;
 }
